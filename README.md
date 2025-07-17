@@ -19,13 +19,13 @@ The first time you run the extension, it will take some time to scan the root fo
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/highesttt/OpenInCode-Raycast.git 
+   git clone https://github.com/highesttt/OpenInEditor-Raycast.git 
    ```
 
 2. Install dependencies:
 
    ```bash
-   cd OpenInCode-Raycast
+   cd OpenInEditor-Raycast
    bun i
    ```
 
