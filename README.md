@@ -6,8 +6,6 @@ This Raycast extension allows you to open directories in your preferred code edi
 It scans a specified root folder for projects (folders containing `.gitignore` files are counted as projects) and provides a list of these projects for quick access.\
 The first time you run the extension, it will take some time to scan the root folder and cache the results. Subsequent runs will be faster as it uses cached data.
 
-![Example](https://raw.githubusercontent.com/highesttt/OpenInCode-Raycast/main/assets/github/example.png)
-
 ## Requirements 📝
 
 - [Node.js](https://nodejs.org/) (>= 24)
@@ -52,6 +50,12 @@ After running the above command, the extension should be available in Raycast, y
 - Kotlin
 - Vue.js
 - React
+
+## Screenshots 🖼️
+![Example](https://raw.githubusercontent.com/highesttt/OpenInCode-Raycast/main/assets/github/example.png)
+<img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/fabf07e5-d739-4606-bfd5-adf5a9b065dd" />
+<img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/44679ef8-96c1-4cba-a4bd-95dfec141d5a" />
+
 
 ## Suggestions and Contributions 💡
 
