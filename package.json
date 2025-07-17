@@ -1,0 +1,152 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "code-ext",
+  "title": "Open in Editor",
+  "description": "Open directories in your code editor",
+  "icon": "icon.png",
+  "author": "highesttt",
+  "categories": [
+    "Developer Tools"
+  ],
+  "license": "MIT",
+  "platforms": [
+    "Windows"
+  ],
+  "commands": [
+    {
+      "name": "findFolders",
+      "title": "Open in Editor",
+      "description": "Search for folders to open in your code editor",
+      "mode": "view"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "rootFolder",
+      "title": "Root Folder",
+      "description": "Base directory to scan for projects (folders containing .gitignore)",
+      "type": "directory",
+      "required": true,
+      "default": "C:\\Dev",
+      "placeholder": "C:\\Dev"
+    },
+    {
+      "name": "editorCommand",
+      "title": "Editor Command",
+      "description": "Command to open folders in your code editor. Use %s as a placeholder for the path.",
+      "type": "textfield",
+      "required": true,
+      "default": "code %s",
+      "placeholder": "code %s"
+    },
+    {
+      "name": "editorCommandKotlin",
+      "title": "Editor Command for Kotlin",
+      "description": "Custom command to open Kotlin projects. Use %s as a placeholder for the path.",
+      "type": "textfield",
+      "required": false,
+      "default": "code %s",
+      "placeholder": "code %s"
+    },
+    {
+      "name": "editorCommandJava",
+      "title": "Editor Command for Java",
+      "description": "Custom command to open Java projects. Use %s as a placeholder for the path.",
+      "type": "textfield",
+      "required": false,
+      "default": "code %s",
+      "placeholder": "code %s"
+    },
+    {
+      "name": "editorCommandPython",
+      "title": "Editor Command for Python",
+      "description": "Custom command to open Python projects. Use %s as a placeholder for the path.",
+      "type": "textfield",
+      "required": false,
+      "default": "code %s",
+      "placeholder": "code %s"
+    },
+    {
+      "name": "editorCommandTypeScript",
+      "title": "Editor Command for JavaScript/TypeScript",
+      "description": "Custom command to open JS/TS projects. Use %s as a placeholder for the path.",
+      "type": "textfield",
+      "required": false,
+      "default": "code %s",
+      "placeholder": "code %s"
+    },
+    {
+      "name": "editorCommandCpp",
+      "title": "Editor Command for C/C++",
+      "description": "Custom command to open C/C++ projects. Use %s as a placeholder for the path.",
+      "type": "textfield",
+      "required": false,
+      "default": "code %s",
+      "placeholder": "code %s"
+    },
+    {
+      "name": "editorCommandRust",
+      "title": "Editor Command for Rust",
+      "description": "Custom command to open Rust projects. Use %s as a placeholder for the path.",
+      "type": "textfield",
+      "required": false,
+      "default": "code %s",
+      "placeholder": "code %s"
+    },
+    {
+      "name": "editorCommandGo",
+      "title": "Editor Command for Go",
+      "description": "Custom command to open Go projects. Use %s as a placeholder for the path.",
+      "type": "textfield",
+      "required": false,
+      "default": "code %s",
+      "placeholder": "code %s"
+    },
+    {
+      "name": "editorCommandRuby",
+      "title": "Editor Command for Ruby",
+      "description": "Custom command to open Ruby projects. Use %s as a placeholder for the path.",
+      "type": "textfield",
+      "required": false,
+      "default": "code %s",
+      "placeholder": "code %s"
+    },
+    {
+      "name": "editorCommandDart",
+      "title": "Editor Command for Dart",
+      "description": "Custom command to open Dart projects. Use %s as a placeholder for the path.",
+      "type": "textfield",
+      "required": false,
+      "default": "code %s",
+      "placeholder": "code %s"
+    },
+    {
+      "name": "editorCommandCSharp",
+      "title": "Editor Command for C#",
+      "description": "Custom command to open C# projects. Use %s as a placeholder for the path.",
+      "type": "textfield",
+      "required": false,
+      "default": "code %s",
+      "placeholder": "code %s"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.101.1",
+    "@raycast/utils": "^2.2.0"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "^2.0.4",
+    "@types/node": "24.0.14",
+    "@types/react": "19.1.8",
+    "eslint": "^9.31.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.8.3"
+  },
+  "scripts": {
+    "build": "ray build -e dist",
+    "dev": "ray develop",
+    "fix-lint": "ray lint --fix",
+    "lint": "ray lint",
+    "publish": "ray publish"
+  }
+}
