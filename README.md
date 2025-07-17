@@ -2,8 +2,8 @@
 
 </br>
 
-This Raycast extension allows you to open directories in your preferred code editor directly from Raycast.
-It scans a specified root folder for projects (folders containing `.gitignore` files are counted as projects) and provides a list of these projects for quick access.
+This Raycast extension allows you to open directories in your preferred code editor directly from Raycast.\
+It scans a specified root folder for projects (folders containing `.gitignore` files are counted as projects) and provides a list of these projects for quick access.\
 The first time you run the extension, it will take some time to scan the root folder and cache the results. Subsequent runs will be faster as it uses cached data.
 
 ![Example](https://raw.githubusercontent.com/highesttt/OpenInCode-Raycast/main/assets/github/example.png)
