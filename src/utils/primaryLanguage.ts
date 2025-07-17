@@ -1,11 +1,16 @@
 import { Icon } from "@raycast/api";
-import { getDeviconUrl } from "./getIcon";
 import { extLangMap, languageDetectionCache } from "../consts";
 import fs from "fs";
 import path from "path";
 import { countFilesByExtensionWin } from "./windows/countByExtension";
 import { isIgnoredByPatterns, parseGitignore } from "./ignore";
 
+
+/**
+ * @param folder - The folder path to scan for primary language.
+ * Detects the primary programming language based on common files and extensions.
+ * @returns An object containing the detected language and its associated icon.
+ */
 export function detectPrimaryLanguage(folder: string): {
   language: string;
   icon: Icon | string;
@@ -40,7 +45,7 @@ export function detectPrimaryLanguage(folder: string): {
             deps["@types/react"] ||
             deps["@types/react-dom"]
           ) {
-            detected = { language: "React", icon: getDeviconUrl("React") };
+            detected = { language: "React", icon: 'icons/react.svg' };
             break;
           }
           if (
@@ -48,7 +53,7 @@ export function detectPrimaryLanguage(folder: string): {
             deps["@vue/runtime-core"] ||
             deps["@vue/cli-service"]
           ) {
-            detected = { language: "Vue.js", icon: getDeviconUrl("Vue.js") };
+            detected = { language: "Vue.js", icon: 'icons/vuejs.svg' };
             break;
           }
           if (
@@ -57,25 +62,36 @@ export function detectPrimaryLanguage(folder: string): {
           ) {
             detected = {
               language: "TypeScript",
-              icon: getDeviconUrl("TypeScript"),
+              icon: 'icons/typescript.svg',
             };
             break;
           }
           detected = {
             language: "JavaScript",
-            icon: getDeviconUrl("JavaScript"),
+            icon: 'icons/javascript.svg',
           };
           break;
         } catch {
-          detected = { language, icon: getDeviconUrl(language) };
+          detected = {
+            language,
+            icon: `icons/javascript.svg`,
+          };
           break;
         }
       } else {
-        detected = { language, icon: getDeviconUrl(language) };
+        detected = {
+          language,
+          icon: `icons/${language.toLowerCase()}.svg`,
+        };
         break;
       }
     }
   }
+  /**
+   * Scans the source folder for the primary programming language.
+   * @param srcFolder - The source folder path.
+   * @returns An object containing the detected language and its associated icon, or null if not found.
+   */
   function scanSourceFolder(
     srcFolder: string,
   ): { language: string; icon: Icon | string } | null {
@@ -84,7 +100,7 @@ export function detectPrimaryLanguage(folder: string): {
     const files = fs.readdirSync(srcFolder);
     for (const file of files) {
       if (file.toLowerCase() === "program.cs" || file.endsWith(".cs")) {
-        return { language: "C#", icon: getDeviconUrl("C#") };
+        return { language: "C#", icon: 'icons/csharp.svg' };
       }
     }
     const extCount: Record<string, number> = {};
@@ -141,20 +157,20 @@ export function detectPrimaryLanguage(folder: string): {
         const ktCount = (extCounts[".kt"] as number) ?? 0;
         const javaCount = (extCounts[".java"] as number) ?? 0;
         if (ktCount > 0 && javaCount === 0)
-          detected = { language: "Kotlin", icon: getDeviconUrl("Kotlin") };
+          detected = { language: "Kotlin", icon: 'icons/kotlin.svg' };
         else if (javaCount > 0 && ktCount === 0)
-          detected = { language: "Java", icon: getDeviconUrl("Java") };
+          detected = { language: "Java", icon: 'icons/java.svg' };
         else if (ktCount > 0 && javaCount > 0)
-          detected = { language: "Java/Kotlin", icon: getDeviconUrl("Java") };
+          detected = { language: "Java/Kotlin", icon: 'icons/java.svg' };
         else if (
           ((extCounts[".c"] as number) ?? 0) > 0 ||
           ((extCounts[".cpp"] as number) ?? 0) > 0
         )
-          detected = { language: "C/C++", icon: getDeviconUrl("C/C++") };
+          detected = { language: "C/C++", icon: 'icons/cpp.svg' };
         else if (file === "gradle.properties" || file === "pom.xml")
-          detected = { language: "Java/Kotlin", icon: getDeviconUrl("Java") };
+          detected = { language: "Java/Kotlin", icon: 'icons/java.svg' };
         else if (file === "Makefile")
-          detected = { language: "C/C++/Other", icon: getDeviconUrl("C/C++") };
+          detected = { language: "C/C++/Other", icon: 'icons/cpp.svg' };
         break;
       }
     }

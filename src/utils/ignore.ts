@@ -3,8 +3,17 @@ import { FileInfo } from "../interfaces/fileinfo";
 import { FolderCache } from "../interfaces/foldercache";
 import { detectPrimaryLanguage } from "./primaryLanguage";
 
+/**
+ * Cache for gitignore folders to avoid frequent disk access.\
+ * It stores the folders and the timestamp of when it was last updated.
+ */
 export let folderCache: FolderCache | null = null;
 
+/**
+ * Parses a .gitignore file and returns an array of ignore patterns.
+ * @param folder - The folder containing the .gitignore file.
+ * @returns An array of ignore patterns.
+ */
 export function parseGitignore(folder: string): string[] {
   const fs = require("fs");
   const path = require("path");
@@ -21,6 +30,11 @@ export function parseGitignore(folder: string): string[] {
   return patterns;
 }
 
+/**
+ * Finds all folders containing a .gitignore file in the specified root directory.
+ * @param root - The root directory to start scanning from.
+ * @returns A promise that resolves to an array of FileInfo objects representing the found folders.
+ */
 export async function findGitignoreFolders(root: string): Promise<FileInfo[]> {
   const results: FileInfo[] = [];
   async function scan(dir: string) {
@@ -47,6 +61,12 @@ export async function findGitignoreFolders(root: string): Promise<FileInfo[]> {
   return results;
 }
 
+/**
+ * Checks if a file or folder name is ignored by the provided patterns.
+ * @param name - The name of the file or folder to check.
+ * @param patterns - An array of ignore patterns.
+ * @returns True if the name is ignored, false otherwise.
+ */
 export function isIgnoredByPatterns(name: string, patterns: string[]): boolean {
   return patterns.some((pattern) => {
     if (pattern.endsWith("/")) {
@@ -56,6 +76,12 @@ export function isIgnoredByPatterns(name: string, patterns: string[]): boolean {
   });
 }
 
+/**
+ * Retrieves cached gitignore folders or scans for them if cache is expired or not available.
+ * @param root - The root directory to scan for gitignore folders.
+ * @param forceRefresh - Whether to force a refresh of the cache.
+ * @returns A promise that resolves to an array of FileInfo objects representing the gitignore folders.
+ */
 export async function getCachedGitignoreFolders(
   root: string,
   forceRefresh: boolean = false,

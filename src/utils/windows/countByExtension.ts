@@ -1,5 +1,11 @@
 import { execSync } from "child_process";
 
+/**
+ * A windows-specific function to count files by their extensions in a given folder.
+ * @param folder - The folder to search in.
+ * @param extensions - An array of file extensions to count.
+ * @returns An object mapping each extension to its file count.
+ */
 export function countFilesByExtensionWin(
   folder: string,
   extensions: string[],

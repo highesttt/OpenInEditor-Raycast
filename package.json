@@ -18,6 +18,12 @@
       "title": "Open in Editor",
       "description": "Search for folders to open in your code editor",
       "mode": "view"
+    },
+    {
+      "name": "customEditors",
+      "title": "Manage Custom Editors",
+      "description": "Add, view, and remove custom editor-language links",
+      "mode": "view"
     }
   ],
   "preferences": [
@@ -36,96 +42,6 @@
       "description": "Command to open folders in your code editor. Use %s as a placeholder for the path.",
       "type": "textfield",
       "required": true,
-      "default": "code %s",
-      "placeholder": "code %s"
-    },
-    {
-      "name": "editorCommandKotlin",
-      "title": "Editor Command for Kotlin",
-      "description": "Custom command to open Kotlin projects. Use %s as a placeholder for the path.",
-      "type": "textfield",
-      "required": false,
-      "default": "code %s",
-      "placeholder": "code %s"
-    },
-    {
-      "name": "editorCommandJava",
-      "title": "Editor Command for Java",
-      "description": "Custom command to open Java projects. Use %s as a placeholder for the path.",
-      "type": "textfield",
-      "required": false,
-      "default": "code %s",
-      "placeholder": "code %s"
-    },
-    {
-      "name": "editorCommandPython",
-      "title": "Editor Command for Python",
-      "description": "Custom command to open Python projects. Use %s as a placeholder for the path.",
-      "type": "textfield",
-      "required": false,
-      "default": "code %s",
-      "placeholder": "code %s"
-    },
-    {
-      "name": "editorCommandTypeScript",
-      "title": "Editor Command for JavaScript/TypeScript",
-      "description": "Custom command to open JS/TS projects. Use %s as a placeholder for the path.",
-      "type": "textfield",
-      "required": false,
-      "default": "code %s",
-      "placeholder": "code %s"
-    },
-    {
-      "name": "editorCommandCpp",
-      "title": "Editor Command for C/C++",
-      "description": "Custom command to open C/C++ projects. Use %s as a placeholder for the path.",
-      "type": "textfield",
-      "required": false,
-      "default": "code %s",
-      "placeholder": "code %s"
-    },
-    {
-      "name": "editorCommandRust",
-      "title": "Editor Command for Rust",
-      "description": "Custom command to open Rust projects. Use %s as a placeholder for the path.",
-      "type": "textfield",
-      "required": false,
-      "default": "code %s",
-      "placeholder": "code %s"
-    },
-    {
-      "name": "editorCommandGo",
-      "title": "Editor Command for Go",
-      "description": "Custom command to open Go projects. Use %s as a placeholder for the path.",
-      "type": "textfield",
-      "required": false,
-      "default": "code %s",
-      "placeholder": "code %s"
-    },
-    {
-      "name": "editorCommandRuby",
-      "title": "Editor Command for Ruby",
-      "description": "Custom command to open Ruby projects. Use %s as a placeholder for the path.",
-      "type": "textfield",
-      "required": false,
-      "default": "code %s",
-      "placeholder": "code %s"
-    },
-    {
-      "name": "editorCommandDart",
-      "title": "Editor Command for Dart",
-      "description": "Custom command to open Dart projects. Use %s as a placeholder for the path.",
-      "type": "textfield",
-      "required": false,
-      "default": "code %s",
-      "placeholder": "code %s"
-    },
-    {
-      "name": "editorCommandCSharp",
-      "title": "Editor Command for C#",
-      "description": "Custom command to open C# projects. Use %s as a placeholder for the path.",
-      "type": "textfield",
-      "required": false,
       "default": "code %s",
       "placeholder": "code %s"
     }

@@ -4,6 +4,7 @@ import {
   getPreferenceValues,
   Icon,
   List,
+  Image,
 } from "@raycast/api";
 import { useCachedPromise } from "@raycast/utils";
 import { useState } from "react";
@@ -12,6 +13,12 @@ import { Preferences } from "./interfaces/preferences";
 import { folderCache, getCachedGitignoreFolders } from "./utils/ignore";
 import { openFolderInEditor } from "./openInEditor";
 
+/**
+ * Main function for the Raycast extension.\
+ * \
+ * Command to list folders containing .gitignore files.\
+ * Allows users to open these folders in a custom editor.
+ */
 export default function Command() {
   const prefs = getPreferenceValues<Preferences>();
   const { rootFolder, forceRefreshFolders } = prefs;
@@ -48,7 +55,9 @@ export default function Command() {
       searchBarPlaceholder={
         isRefreshing ? "Refreshing folders..." : "Filter folders..."
       }
-      onSearchTextChange={setSearchText}
+      onSearchTextChange={(searchText: string) =>
+        setSearchText(searchText.toLowerCase())
+      }
       throttle
     >
       <List.EmptyView
@@ -69,14 +78,23 @@ export default function Command() {
         icon={Icon.Folder}
       />
       {displayFolders
-        .filter((f) => f.name.toLowerCase().includes(searchText.toLowerCase()))
+        .filter((f) => f.name.toLowerCase().includes(searchText))
         .map((folder) => (
           <List.Item
             key={folder.commandline}
             id={folder.commandline}
             title={folder.name}
             subtitle={folder.commandline}
-            icon={folder.icon}
+            icon={
+              folder.icon.trim().startsWith("<svg")
+                ? {
+                    source: {
+                      dark: folder.icon,
+                      light: folder.icon,
+                    },
+                  }
+                : folder.icon
+            }
             accessories={[{ text: folder.language || "Unknown" }]}
             actions={
               <ActionPanel>
@@ -91,12 +109,6 @@ export default function Command() {
                   <Action.CopyToClipboard
                     title="Copy Folder Path"
                     content={folder.commandline}
-                  />
-                  <Action
-                    title="Toggle Details"
-                    icon={Icon.AppWindowSidebarLeft}
-                    onAction={() => setIsShowingDetail(!isShowingDetail)}
-                    shortcut={{ modifiers: ["cmd"], key: "i" }}
                   />
                   <Action
                     title="Refresh Folders"
