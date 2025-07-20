@@ -1,4 +1,4 @@
-# Raycast Open In Code Editor Extension [WINDOWS]
+# Raycast Open In Code Editor Extension [WINDOWS & MACOS] 🖥️
 
 </br>
 
