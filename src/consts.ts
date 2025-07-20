@@ -56,6 +56,8 @@ export const extLangMap: Record<
   ".java": { language: "Java", icon: 'icons/java.svg' },
   ".kt": { language: "Kotlin", icon: 'icons/kotlin.svg' },
   ".rb": { language: "Ruby", icon: 'icons/ruby.svg' },
+  ".gd": { language: "Godot", icon: 'icons/godot.svg' },
+  ".swift": { language: "Swift", icon: 'icons/swift.svg' },
   ".dart": { language: "Dart", icon: 'icons/dart.svg' },
   ".cpp": { language: "C++", icon: 'icons/cpp.svg' },
   ".c": { language: "C", icon: 'icons/c.svg' },

@@ -83,7 +83,7 @@ export default function Command() {
           <List.Item
             key={folder.commandline}
             id={folder.commandline}
-            title={folder.name}
+            title={require("path").basename(folder.commandline)}
             subtitle={folder.commandline}
             icon={
               folder.icon.trim().startsWith("<svg")

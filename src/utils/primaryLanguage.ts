@@ -25,6 +25,8 @@ export async function detectPrimaryLanguage(folder: string): Promise<{
     { file: "Cargo.toml", language: "Rust" },
     { file: "go.mod", language: "Go" },
     { file: "Gemfile", language: "Ruby" },
+    { file: "Podfile", language: "Swift" },
+    { file: "project.godot", language: "Godot" },
     { file: "tsconfig.json", language: "TypeScript" },
   ];
   let detected: { language: string; icon: Icon | string } = {
@@ -193,6 +195,34 @@ export async function detectPrimaryLanguage(folder: string): Promise<{
         }
         if (maxExt) detected = extLangMap[maxExt];
       } catch {}
+    }
+    if (detected.language === "Unknown") {
+      // check all files inside of subfolders
+      const subFolders = fs
+        .readdirSync(folder)
+        .filter((f) => fs.statSync(path.join(folder, f)).isDirectory());
+      for (const subFolder of subFolders) {
+        const subPath = path.join(folder, subFolder);
+        const result = await detectPrimaryLanguage(subPath);
+        if (result.language !== "Unknown") {
+          detected = result;
+          break;
+        }
+      }
+    }
+    if (detected.language === "Unknown") {
+      if (fs.existsSync(path.join(folder, "index.html"))) {
+        detected = { language: "HTML/CSS/JavaScript", icon: 'icons/html.svg' };
+      }
+    }
+    if (detected.language === "Unknown") {
+      const dockerFiles = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile"];
+      for (const file of dockerFiles) {
+        if (fs.existsSync(path.join(folder, file))) {
+          detected = { language: "Docker", icon: 'icons/docker.svg' };
+          break;
+        }
+      }
     }
   }
   languageDetectionCache[folder] = detected;
