@@ -43,8 +43,8 @@
       "description": "Command to open folders in your code editor. Use %s as a placeholder for the path.",
       "type": "textfield",
       "required": true,
-      "default": "code %s",
-      "placeholder": "code %s"
+      "default": "/usr/local/bin/code %s",
+      "placeholder": "/usr/local/bin/code %s"
     }
   ],
   "dependencies": {

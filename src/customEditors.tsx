@@ -123,8 +123,8 @@ export default function CustomEditors() {
         </Form.Dropdown>
         <Form.TextField
           id="command"
-          title="Editor Command"
-          placeholder="e.g. code %s"
+          title="Full Path to Editor Command"
+          placeholder="e.g. /usr/local/bin/code %s"
         />
       </Form>
     );
