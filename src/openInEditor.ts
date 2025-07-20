@@ -42,6 +42,9 @@ export async function openFolderInEditor(folder: string, language?: string) {
     const commandArgs = cmd.match(/"[^"]+"|\S+/g) || [];
     if (!commandArgs[0]) throw new Error("Editor command is invalid.");
     const executable = commandArgs[0].replace(/"/g, "");
+    if (process.platform === "darwin") {
+      cmd = cmd.replace(/ /g, "\\ ");
+    }
     const args = commandArgs.slice(1).map((arg) => arg.replace("%s", folder));
     await execFileAsync(executable, args);
     await showToast({
