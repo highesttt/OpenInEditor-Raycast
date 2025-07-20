@@ -2,7 +2,7 @@ import { Icon } from "@raycast/api";
 import { extLangMap, languageDetectionCache } from "../consts";
 import fs from "fs";
 import path from "path";
-import { countFilesByExtensionWin } from "./windows/countByExtension";
+import { countFilesByExtension } from "./windows/countByExtension";
 import { isIgnoredByPatterns, parseGitignore } from "./ignore";
 
 
@@ -11,10 +11,10 @@ import { isIgnoredByPatterns, parseGitignore } from "./ignore";
  * Detects the primary programming language based on common files and extensions.
  * @returns An object containing the detected language and its associated icon.
  */
-export function detectPrimaryLanguage(folder: string): {
+export async function detectPrimaryLanguage(folder: string): Promise<{
   language: string;
   icon: Icon | string;
-} {
+}> {
   if (languageDetectionCache[folder]) {
     return languageDetectionCache[folder];
   }
@@ -152,7 +152,7 @@ export function detectPrimaryLanguage(folder: string): {
       if (fs.existsSync(path.join(folder, file))) {
         let extCounts: Record<string, number> = {};
         try {
-          extCounts = countFilesByExtensionWin(folder, extensions);
+          extCounts = await countFilesByExtension(folder, extensions);
         } catch {}
         const ktCount = (extCounts[".kt"] as number) ?? 0;
         const javaCount = (extCounts[".java"] as number) ?? 0;

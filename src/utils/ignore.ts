@@ -96,7 +96,7 @@ export async function getCachedGitignoreFolders(
   }
   const folders = await findGitignoreFolders(root);
   for (const folder of folders) {
-    const langInfo = detectPrimaryLanguage(folder.commandline);
+    const langInfo = await detectPrimaryLanguage(folder.commandline);
     folder.language = langInfo.language;
     folder.icon = langInfo.icon;
   }
