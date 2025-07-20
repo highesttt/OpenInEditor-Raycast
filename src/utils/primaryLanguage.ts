@@ -2,7 +2,7 @@ import { Icon } from "@raycast/api";
 import { extLangMap, languageDetectionCache } from "../consts";
 import fs from "fs";
 import path from "path";
-import { countFilesByExtension } from "./windows/countByExtension";
+import { countFilesByExtension } from "./countByExtension";
 import { isIgnoredByPatterns, parseGitignore } from "./ignore";
 
 
