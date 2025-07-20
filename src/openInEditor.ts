@@ -39,12 +39,12 @@ export async function openFolderInEditor(folder: string, language?: string) {
     cmd = customCommand;
   }
   try {
-    const commandArgs = cmd.match(/"[^"]+"|\S+/g) || [];
-    if (!commandArgs[0]) throw new Error("Editor command is invalid.");
-    const executable = commandArgs[0].replace(/"/g, "");
     if (process.platform === "darwin") {
       cmd = cmd.replace(/ /g, "\\ ");
     }
+    const commandArgs = cmd.match(/"[^"]+"|\S+/g) || [];
+    if (!commandArgs[0]) throw new Error("Editor command is invalid.");
+    const executable = commandArgs[0].replace(/"/g, "");
     const args = commandArgs.slice(1).map((arg) => arg.replace("%s", folder));
     await execFileAsync(executable, args);
     await showToast({
@@ -58,9 +58,7 @@ export async function openFolderInEditor(folder: string, language?: string) {
       style: Toast.Style.Failure,
       title: "Error Opening Folder",
       message:
-        error instanceof Error
-          ? error.message
-          : `Failed to execute: ${cmd}`,
+        error instanceof Error ? error.message : `Failed to execute: ${cmd}`,
     });
   }
 }
