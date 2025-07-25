@@ -64,7 +64,8 @@ After running the above command, the extension should be available in Raycast, y
 | <img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/c87e0ad8-a23a-4d96-ba66-7a5c63d9f5a1" /> | <img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/fabf07e5-d739-4606-bfd5-adf5a9b065dd" /> |
 |----------|----------|
 | <img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/44679ef8-96c1-4cba-a4bd-95dfec141d5a" /> | <img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/34287b16-c0f1-45c4-b28f-a9b138918aee" /> |
-|----------|----------|
+| <img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/9f1bc58c-8691-4d5c-9a91-4dac9c7f334e" /> | <img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/03702f83-edff-4eb5-a70d-0eda78c47b6d" /> |
+
 
 
 ## Suggestions and Contributions 💡
