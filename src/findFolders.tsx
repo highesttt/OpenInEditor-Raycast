@@ -12,6 +12,7 @@ import { FileInfo } from "./interfaces/fileinfo";
 import { Preferences } from "./interfaces/preferences";
 import { folderCache, getCachedGitignoreFolders } from "./utils/ignore";
 import { openFolderInEditor } from "./openInEditor";
+import { extLangMap } from "./consts";
 
 /**
  * Main function for the Raycast extension.\
@@ -78,7 +79,47 @@ export default function Command() {
         icon={Icon.Folder}
       />
       {displayFolders
-        .filter((f) => f.name.toLowerCase().includes(searchText))
+        .filter((f) => {
+          const lowerSearchText = searchText.toLowerCase();
+
+          if (!lowerSearchText.trim()) return true;
+
+          const searchTerms = lowerSearchText.trim().split(/\s+/);
+
+          return searchTerms.every((term) => {
+            if (term.startsWith("@") || term.startsWith("folder:")) {
+              const folderQuery = term.replace(/^(folder:|@)/, "");
+              return f.commandline.toLowerCase().includes(folderQuery);
+            }
+
+            if (term.startsWith("#") || term.startsWith("lang:")) {
+              const langQuery = term.replace(/^(lang:|#)/, "");
+
+              if (
+                langQuery.startsWith(".") ||
+                Object.keys(extLangMap).some(
+                  (ext) => ext.toLowerCase() === `.${langQuery.toLowerCase()}`,
+                )
+              ) {
+                const normalizedExt = langQuery.startsWith(".")
+                  ? langQuery
+                  : `.${langQuery}`;
+                return Object.entries(extLangMap).some(
+                  ([ext, { language }]) => {
+                    return (
+                      ext.toLowerCase() === normalizedExt.toLowerCase() &&
+                      f.language?.toLowerCase() === language.toLowerCase()
+                    );
+                  },
+                );
+              }
+
+              return f.language?.toLowerCase().includes(langQuery);
+            }
+
+            return f.name.toLowerCase().includes(term);
+          });
+        })
         .map((folder) => (
           <List.Item
             key={folder.commandline}

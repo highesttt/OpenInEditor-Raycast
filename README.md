@@ -4,7 +4,11 @@
 
 This Raycast extension allows you to open directories in your preferred code editor directly from Raycast.\
 It scans a specified root folder for projects (folders containing `.gitignore` files are counted as projects) and provides a list of these projects for quick access.\
-The first time you run the extension, it will take some time to scan the root folder and cache the results. Subsequent runs will be faster as it uses cached data.
+The first time you run the extension, it will take some time to scan the root folder and cache the results. Subsequent runs will be faster as it uses cached data.\
+\
+You can also search for projects by name, folder, or language by using the following search terms:
+- `@{folder}` or `folder:{folder}`: Search by folder name
+- `#{language}` or `lang:{language}`: Search by programming language or extension
 
 ## Requirements 📝
 
@@ -60,6 +64,7 @@ After running the above command, the extension should be available in Raycast, y
 | <img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/c87e0ad8-a23a-4d96-ba66-7a5c63d9f5a1" /> | <img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/fabf07e5-d739-4606-bfd5-adf5a9b065dd" /> |
 |----------|----------|
 | <img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/44679ef8-96c1-4cba-a4bd-95dfec141d5a" /> | <img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/34287b16-c0f1-45c4-b28f-a9b138918aee" /> |
+|----------|----------|
 
 
 ## Suggestions and Contributions 💡
