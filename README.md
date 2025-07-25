@@ -7,6 +7,7 @@ It scans a specified root folder for projects (folders containing `.gitignore` f
 The first time you run the extension, it will take some time to scan the root folder and cache the results. Subsequent runs will be faster as it uses cached data.\
 \
 You can also search for projects by name, folder, or language by using the following search terms:
+
 - `@{folder}` or `folder:{folder}`: Search by folder name
 - `#{language}` or `lang:{language}`: Search by programming language or extension
 
