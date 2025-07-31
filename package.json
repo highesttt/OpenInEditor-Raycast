@@ -25,6 +25,12 @@
       "title": "Manage Custom Editors",
       "description": "Add, view, and remove custom editor-language links",
       "mode": "view"
+    },
+    {
+      "name": "customIgnoredFolders",
+      "title": "Manage Ignored Folders",
+      "description": "Add, view, and remove custom folders to ignore when scanning",
+      "mode": "view"
     }
   ],
   "preferences": [

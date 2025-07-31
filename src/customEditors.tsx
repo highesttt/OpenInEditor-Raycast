@@ -43,10 +43,6 @@ export default function CustomEditors() {
    * @param values - The form values containing programming language and command to run.
    */
   function handleAddEditor(values: { language: string; command: string }) {
-    console.log(
-      `[${new Date().toISOString()}] handleAddEditor called with:`,
-      values,
-    );
     const language = values.language.trim();
     let command = values.command.trim();
     if (!language || !command) {

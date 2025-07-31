@@ -1,10 +1,13 @@
 import { Icon } from "@raycast/api";
-import { extLangMap, languageDetectionCache } from "../consts";
+import {
+  extLangMap,
+  languageDetectionCache,
+  getAllIgnoredFolders,
+} from "../consts";
 import fs from "fs";
 import path from "path";
 import { countFilesByExtension } from "./countByExtension";
 import { isIgnoredByPatterns, parseGitignore } from "./ignore";
-
 
 /**
  * @param folder - The folder path to scan for primary language.
@@ -18,6 +21,8 @@ export async function detectPrimaryLanguage(folder: string): Promise<{
   if (languageDetectionCache[folder]) {
     return languageDetectionCache[folder];
   }
+
+  const allIgnoredFolders = await getAllIgnoredFolders();
   const gitignorePatterns = parseGitignore(folder);
   const languageFiles = [
     { file: "package.json", language: "JavaScript/TypeScript" },
@@ -47,7 +52,7 @@ export async function detectPrimaryLanguage(folder: string): Promise<{
             deps["@types/react"] ||
             deps["@types/react-dom"]
           ) {
-            detected = { language: "React", icon: 'icons/react.svg' };
+            detected = { language: "React", icon: "icons/react.svg" };
             break;
           }
           if (
@@ -55,7 +60,7 @@ export async function detectPrimaryLanguage(folder: string): Promise<{
             deps["@vue/runtime-core"] ||
             deps["@vue/cli-service"]
           ) {
-            detected = { language: "Vue.js", icon: 'icons/vuejs.svg' };
+            detected = { language: "Vue.js", icon: "icons/vuejs.svg" };
             break;
           }
           if (
@@ -64,13 +69,13 @@ export async function detectPrimaryLanguage(folder: string): Promise<{
           ) {
             detected = {
               language: "TypeScript",
-              icon: 'icons/typescript.svg',
+              icon: "icons/typescript.svg",
             };
             break;
           }
           detected = {
             language: "JavaScript",
-            icon: 'icons/javascript.svg',
+            icon: "icons/javascript.svg",
           };
           break;
         } catch {
@@ -102,7 +107,7 @@ export async function detectPrimaryLanguage(folder: string): Promise<{
     const files = fs.readdirSync(srcFolder);
     for (const file of files) {
       if (file.toLowerCase() === "program.cs" || file.endsWith(".cs")) {
-        return { language: "C#", icon: 'icons/csharp.svg' };
+        return { language: "C#", icon: "icons/csharp.svg" };
       }
     }
     const extCount: Record<string, number> = {};
@@ -122,7 +127,10 @@ export async function detectPrimaryLanguage(folder: string): Promise<{
     if (maxExt) return extLangMap[maxExt];
     for (const file of files) {
       const subPath = path.join(srcFolder, file);
-      if (fs.statSync(subPath).isDirectory()) {
+      if (
+        fs.statSync(subPath).isDirectory() &&
+        !allIgnoredFolders.includes(file)
+      ) {
         const result = scanSourceFolder(subPath);
         if (result) return result;
       }
@@ -159,20 +167,20 @@ export async function detectPrimaryLanguage(folder: string): Promise<{
         const ktCount = (extCounts[".kt"] as number) ?? 0;
         const javaCount = (extCounts[".java"] as number) ?? 0;
         if (ktCount > 0 && javaCount === 0)
-          detected = { language: "Kotlin", icon: 'icons/kotlin.svg' };
+          detected = { language: "Kotlin", icon: "icons/kotlin.svg" };
         else if (javaCount > 0 && ktCount === 0)
-          detected = { language: "Java", icon: 'icons/java.svg' };
+          detected = { language: "Java", icon: "icons/java.svg" };
         else if (ktCount > 0 && javaCount > 0)
-          detected = { language: "Java/Kotlin", icon: 'icons/java.svg' };
+          detected = { language: "Java/Kotlin", icon: "icons/java.svg" };
         else if (
           ((extCounts[".c"] as number) ?? 0) > 0 ||
           ((extCounts[".cpp"] as number) ?? 0) > 0
         )
-          detected = { language: "C/C++", icon: 'icons/cpp.svg' };
+          detected = { language: "C/C++", icon: "icons/cpp.svg" };
         else if (file === "gradle.properties" || file === "pom.xml")
-          detected = { language: "Java/Kotlin", icon: 'icons/java.svg' };
+          detected = { language: "Java/Kotlin", icon: "icons/java.svg" };
         else if (file === "Makefile")
-          detected = { language: "C/C++/Other", icon: 'icons/cpp.svg' };
+          detected = { language: "C/C++/Other", icon: "icons/cpp.svg" };
         break;
       }
     }
@@ -198,9 +206,12 @@ export async function detectPrimaryLanguage(folder: string): Promise<{
     }
     if (detected.language === "Unknown") {
       // check all files inside of subfolders
-      const subFolders = fs
-        .readdirSync(folder)
-        .filter((f) => fs.statSync(path.join(folder, f)).isDirectory());
+      const subFolders = fs.readdirSync(folder).filter((f) => {
+        const fullPath = path.join(folder, f);
+        return (
+          fs.statSync(fullPath).isDirectory() && !allIgnoredFolders.includes(f)
+        );
+      });
       for (const subFolder of subFolders) {
         const subPath = path.join(folder, subFolder);
         const result = await detectPrimaryLanguage(subPath);
@@ -212,14 +223,18 @@ export async function detectPrimaryLanguage(folder: string): Promise<{
     }
     if (detected.language === "Unknown") {
       if (fs.existsSync(path.join(folder, "index.html"))) {
-        detected = { language: "HTML/CSS/JavaScript", icon: 'icons/html.svg' };
+        detected = { language: "HTML/CSS/JavaScript", icon: "icons/html.svg" };
       }
     }
     if (detected.language === "Unknown") {
-      const dockerFiles = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile"];
+      const dockerFiles = [
+        "docker-compose.yml",
+        "docker-compose.yaml",
+        "Dockerfile",
+      ];
       for (const file of dockerFiles) {
         if (fs.existsSync(path.join(folder, file))) {
-          detected = { language: "Docker", icon: 'icons/docker.svg' };
+          detected = { language: "Docker", icon: "icons/docker.svg" };
           break;
         }
       }

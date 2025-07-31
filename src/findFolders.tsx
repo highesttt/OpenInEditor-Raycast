@@ -54,7 +54,7 @@ export default function Command() {
       isLoading={isLoading && cachedFolders.length === 0}
       isShowingDetail={isShowingDetail}
       searchBarPlaceholder={
-        isRefreshing ? "Refreshing folders..." : "Filter folders..."
+        isRefreshing ? "Refreshing folders..." : "Search folders..."
       }
       onSearchTextChange={(searchText: string) =>
         setSearchText(searchText.toLowerCase())

@@ -22,6 +22,8 @@ declare namespace Preferences {
   export type FindFolders = ExtensionPreferences & {}
   /** Preferences accessible in the `customEditors` command */
   export type CustomEditors = ExtensionPreferences & {}
+  /** Preferences accessible in the `customIgnoredFolders` command */
+  export type CustomIgnoredFolders = ExtensionPreferences & {}
 }
 
 declare namespace Arguments {
@@ -29,5 +31,7 @@ declare namespace Arguments {
   export type FindFolders = {}
   /** Arguments passed to the `customEditors` command */
   export type CustomEditors = {}
+  /** Arguments passed to the `customIgnoredFolders` command */
+  export type CustomIgnoredFolders = {}
 }
 

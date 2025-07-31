@@ -50,7 +50,6 @@ export async function openFolderInEditor(folder: string, language?: string) {
       message: `Opened ${folder}`,
     });
   } catch (error) {
-    console.log(error);
     await showToast({
       style: Toast.Style.Failure,
       title: "Error Opening Folder",

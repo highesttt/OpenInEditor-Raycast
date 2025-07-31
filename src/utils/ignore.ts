@@ -1,4 +1,4 @@
-import { CACHE_EXPIRY_MS, foldersToIgnore } from "../consts";
+import { CACHE_EXPIRY_MS, getAllIgnoredFolders } from "../consts";
 import { FileInfo } from "../interfaces/fileinfo";
 import { FolderCache } from "../interfaces/foldercache";
 import { detectPrimaryLanguage } from "./primaryLanguage";
@@ -37,14 +37,19 @@ export function parseGitignore(folder: string): string[] {
  */
 export async function findGitignoreFolders(root: string): Promise<FileInfo[]> {
   const results: FileInfo[] = [];
+  const allIgnoredFolders = await getAllIgnoredFolders();
+
   async function scan(dir: string) {
     const entries = await import("fs/promises").then((fs) =>
       fs.readdir(dir, { withFileTypes: true }),
     );
+    const gitignorePatterns = parseGitignore(dir);
     for (const entry of entries) {
-      if (entry.isDirectory() && foldersToIgnore.includes(entry.name)) continue;
-      const fullPath = require("path").join(dir, entry.name);
       if (entry.isDirectory()) {
+        if (allIgnoredFolders.includes(entry.name)) continue;
+        if (isIgnoredByPatterns(entry.name, gitignorePatterns)) continue;
+
+        const fullPath = require("path").join(dir, entry.name);
         const gitignorePath = require("path").join(fullPath, ".gitignore");
         try {
           await import("fs/promises").then((fs) => fs.access(gitignorePath));
