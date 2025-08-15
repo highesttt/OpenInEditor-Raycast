@@ -1,13 +1,10 @@
 import { Icon } from "@raycast/api";
-import { execFile } from "child_process";
-import { promisify } from "util";
 import { getCustomIgnoredFolders } from "./utils/storage";
 
 /**
  * Cache expiry time in milliseconds (2 hours).
  */
 export const CACHE_EXPIRY_MS = 2 * 60 * 60 * 1000;
-export const execFileAsync = promisify(execFile);
 
 /**
  * The key used to store custom editor commands in local storage.

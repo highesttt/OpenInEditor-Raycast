@@ -1,6 +1,7 @@
 import { getPreferenceValues, showToast, Toast } from "@raycast/api";
-import { execFileAsync } from "./consts";
 import { getCustomEditors } from "./utils/storage";
+import { exec } from "child_process";
+import { promisify } from "util";
 
 /**
  * Retrieves the custom editor command for a given programming language.
@@ -39,17 +40,21 @@ export async function openFolderInEditor(folder: string, language?: string) {
     cmd = customCommand;
   }
   try {
-    const commandArgs = cmd.match(/"[^"]+"|\S+/g) || [];
-    if (!commandArgs[0]) throw new Error("Editor command is invalid.");
-    const executable = commandArgs[0].replace(/"/g, "");
-    const args = commandArgs.slice(1).map((arg) => arg.replace("%s", folder));
-    await execFileAsync(executable, args);
+    const execAsync = promisify(exec);
+
+    const fullCommand = cmd.replace("%s", folder);
+
+    console.log("Executing shell command:", fullCommand);
+    await execAsync(fullCommand);
+
     await showToast({
       style: Toast.Style.Success,
       title: "Opening Folder",
       message: `Opened ${folder}`,
     });
   } catch (error) {
+    console.error("Error opening folder in editor:", error);
+
     await showToast({
       style: Toast.Style.Failure,
       title: "Error Opening Folder",
